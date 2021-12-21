@@ -14,5 +14,6 @@ router.get('/abhinay', (req, res) => {
 router.post('/adduser', actions.addNew)
 router.post('/authenticate', actions.authenticate)
 router.get('/getinfo', actions.getinfo)
+router.post('/update', actions.updateinfo)
 
 module.exports = router

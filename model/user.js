@@ -21,6 +21,34 @@ var userSchema = new Schema({
     lastname: {
         type: String,
         require: true
+    },
+    address: {
+        type: String,
+        require: true
+    },
+    productname: {
+        type: String,
+        require: true
+    },
+    model: {
+        type: String,
+        require: true
+    },
+    manyear: {
+        type: String,
+        require: true
+    },
+    rent: {
+        type: String,
+        require: true
+    },
+    plocation: {
+        type: String,
+        require: true
+    },
+    rc: {
+        type: String,
+        require: true
     }
 
 })

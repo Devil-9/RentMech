@@ -25,6 +25,28 @@ var functions = {
             })
         }
     },
+
+    updateinfo: function(req, res) {
+        
+        var myquery = { email: req.body.email };
+        var newvalues = { $set: {
+            address: req.body.address,
+            productname: req.body.productname,
+            model: req.body.model,
+            manyear: req.body.manyear,
+            rent: req.body.rent,
+            plocation: req.body.plocation,
+            rc: req.body.rc  
+        } };
+        User.updateOne(myquery, newvalues, function(err, user) {
+            if (err) {
+                res.json({success: false, msg: 'Failed to save'})
+            }
+            else {
+                res.json({success: true, msg: 'Successfully saved'})
+            }
+        });
+    },
     authenticate: function (req, res) {
         User.findOne({
             email: req.body.email
