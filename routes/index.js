@@ -1,5 +1,6 @@
 const express = require('express')
 const actions = require('../methods/actions')
+const equipmentActions = require('../methods/equipmentActions')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -15,5 +16,7 @@ router.post('/adduser', actions.addNew)
 router.post('/authenticate', actions.authenticate)
 router.get('/getinfo', actions.getinfo)
 router.post('/update', actions.updateinfo)
+router.post('/addEquipment', equipmentActions.addEquipment)
+router.get('/getEquipments', equipmentActions.getEquipments)
 
 module.exports = router
