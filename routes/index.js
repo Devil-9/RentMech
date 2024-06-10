@@ -17,6 +17,6 @@ router.post('/authenticate', actions.authenticate)
 router.get('/getinfo', actions.getinfo)
 router.post('/update', actions.updateinfo)
 router.post('/addEquipment', equipmentActions.addEquipment)
-router.get('/getEquipments', equipmentActions.getEquipments)
+router.post('/getEquipments', equipmentActions.getEquipments)
 
 module.exports = router
