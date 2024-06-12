@@ -20,5 +20,6 @@ router.post('/update', actions.updateinfo)
 router.post('/addEquipment', equipmentActions.addEquipment)
 router.post('/getEquipments', equipmentActions.getEquipments)
 router.post('/makeOrder', orderAction.makeOrder)
+router.post('/getOrders', orderAction.getOrders)
 
 module.exports = router

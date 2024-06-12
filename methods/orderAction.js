@@ -21,6 +21,26 @@ var functions = {
             }
         })
     },
+
+    getOrders: async (req, res) => {
+
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ success: false, msg: 'Email required'});
+          }
+
+        try {
+            const orders = await Order.find({ email: email });
+            if (orders.length === 0) {
+              return res.status(404).json({ success: false, msg: 'No data found' });
+            }
+            res.json({ success: true, orders: orders });
+          } catch (err) {
+            console.error('Error fetching users:', err);
+            res.status(500).json({ success: false, msg: 'Internal server error' });
+          }
+    }
 }
 
 module.exports = functions
