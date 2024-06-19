@@ -6,7 +6,7 @@ var orderSchema = new Schema({
         type: String,
         require: true
     },
-    phone: {
+    duration: {
         type: String,
         require: true
     },
@@ -18,7 +18,7 @@ var orderSchema = new Schema({
         type: String,
         require: true
     },
-    model: {
+    address: {
         type: String,
         require: true
     },

@@ -6,10 +6,12 @@ var functions = {
     makeOrder: function (req, res) {
         var newOrder = Order ({
             email : req.body.email,
-            phone : req.body.phone,
             location : req.body.location,
             productName : req.body.productName,
-            rent : req.body.rent
+            rent : req.body.rent,
+            date : req.body.date,
+            duration : req.body.duration,
+            address : req.body.address
         });
 
         newOrder.save(function (err,newOrder) {
