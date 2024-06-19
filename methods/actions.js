@@ -4,21 +4,16 @@ var config = require('../config/dbconfig')
 
 var functions = {
     addNew: function (req, res) {
-        // if((!req.body.email) || (!req.body.password || (!req.body.firstname) || (!req.body.lastname) ||(!req.body.phone))) {
-        //     res.json({success: false, msg: 'Enter all fields'})
-        // }
-        // else {
+        if((!req.body.email) || (!req.body.password || (!req.body.firstname) || (!req.body.lastname) ||(!req.body.phone))) {
+            res.json({success: false, msg: 'Enter all fields'})
+        }
+        else {
             var newUser = User({
-                // firstname: req.body.firstname,
-                // lastname: req.body.lastname,
-                // phone: req.body.phone,
-                // email: req.body.email,
-                // password: req.body.password
-                firstname: "req.body.firstname",
-                lastname: "req.body.lastname",
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
                 phone: req.body.phone,
                 email: req.body.email,
-                password: "req.body.password"
+                password: req.body.password
             });
             newUser.save(function (err, newUser) {
                 if (err) {
@@ -28,7 +23,7 @@ var functions = {
                     res.json({success: true, msg: 'Successfully saved'})
                 }
             })
-        // }
+        }
     },
 
     updateinfo: function(req, res) {
