@@ -17,6 +17,7 @@ router.post('/adduser', actions.addNew)
 router.post('/authenticate', actions.authenticate)
 router.get('/getinfo', actions.getinfo)
 router.post('/update', actions.updateinfo)
+router.post('/check-email', actions.checkEmailExists);
 router.post('/addEquipment', equipmentActions.addEquipment)
 router.post('/getEquipments', equipmentActions.getEquipments)
 router.post('/makeOrder', orderAction.makeOrder)

@@ -73,6 +73,25 @@ const functions = {
         }
     },
 
+    checkEmailExists: async function (req, res) {
+        try {
+            const { email } = req.body;
+            if (!email) {
+                return res.status(400).json({ success: false, msg: 'Email is required' });
+            }
+
+            const user = await User.findOne({ email });
+            if (user) {
+                res.json({ exists: true, msg: 'Email already exists' });
+            } else {
+                res.json({ exists: false, msg: 'Email does not exist' });
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ success: false, msg: 'Failed to check email' });
+        }
+    },
+
     getinfo: function (req, res) {
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
             const token = req.headers.authorization.split(' ')[1];
