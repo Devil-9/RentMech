@@ -27,4 +27,12 @@ require('./config/passport')(passport)
 
 app.listen(process.env.PORT || 3000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-  });
+  })
+// remove this part after use.
+function task() {
+    console.log("Server is active");
+}
+
+setInterval(task, 60000);
+
+task();
