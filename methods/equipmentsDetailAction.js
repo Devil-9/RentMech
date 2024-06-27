@@ -37,6 +37,37 @@ var functions = {
         });
     },
 
+    getVendorsList: function (req, res) {
+        var { productName, model, company, location } = req.body;
+
+        // Validate input
+        if (!productName || !model || !company || !location) {
+            return res.status(400).json({ success: false, msg: 'Missing required fields' });
+        }
+
+        // Find EquipmentsDetail entries that match the given criteria
+        EquipmentsDetail.find({ productName, model, company, location }, 'email rent', function (err, details) {
+            if (err) {
+                console.error('Error finding EquipmentsDetail:', err);
+                return res.status(500).json({ success: false, msg: 'Database error', error: err });
+            }
+
+            if (!details.length) {
+                // Return a message if no matching entries are found
+                return res.status(404).json({ success: false, msg: 'No matching Vendor found', error: 'Not found' });
+            }
+
+            // Format the results to include only email and rent
+            var vendorList = details.map(detail => ({
+                email: detail.email,
+                rent: detail.rent
+            }));
+
+            // Return the formatted list
+            res.json({ success: true, msg: 'Successfully retrieved vendor list', vendors: vendorList });
+        });
+    },
+
     addOrUpdateEquipmentsDetail: function (req, res) {
         var idDetail = `${req.body.email}@${req.body.productName}@${req.body.model}@${req.body.company}@${req.body.location}`;
         var idEquip = `${req.body.productName}@${req.body.model}@${req.body.company}@${req.body.location}`;

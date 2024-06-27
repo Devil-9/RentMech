@@ -29,6 +29,7 @@ router.post('/completeOrder', orderAction.completeOrder)
 router.post('/cancelOrder', orderAction.cancelOrder)
 router.post('/getOrdersByStatus', orderAction.getOrdersByStatus)
 router.post('/addEquipmentsDetail', equipmentsDetailAction.addOrUpdateEquipmentsDetail)
+router.post('/getVendorsList', equipmentsDetailAction.getVendorsList)
 router.post('/addVendor', equipmentsDetailAction.addVendor)
 
 module.exports = router
