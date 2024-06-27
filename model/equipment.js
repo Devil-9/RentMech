@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var equipmentSchema = new Schema({
@@ -22,15 +22,31 @@ var equipmentSchema = new Schema({
         type: String,
         require: true
     },
-    rent: {
+    company: {
         type: String,
         require: true
+    },
+    minRent: {
+        type: String,
+        required: true
+    },
+    maxRent: {
+        type: String,
+        required: true
     },
     location: {
         type: String,
         require: true
+    },
+    totalQuantity: {
+        type: Number,
+        default: 0
+    },
+    id: {
+        type: String,
+        required: true,
+        unique: true
     }
+});
 
-})
-
-module.exports = mongoose.model('Equipment', equipmentSchema)
+module.exports = mongoose.model('Equipments', equipmentSchema);

@@ -104,6 +104,21 @@ const functions = {
         } else {
             res.status(400).json({ success: false, msg: 'No headers' });
         }
+    },
+
+    getUser: async function (req, res) {
+        try {
+            const { email } = req.body;
+            const user = await User.findOne({ email });
+            if (!user) {
+                return res.status(404).json({ success: false, msg: 'User not found' });
+            }
+
+            res.json({ success: true, user: user });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ success: false, msg: err });
+        }
     }
 };
 

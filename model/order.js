@@ -6,6 +6,10 @@ var orderSchema = new Schema({
         type: String,
         require: true
     },
+    vendorEmail: {
+        type: String,
+        require: true
+    },
     duration: {
         type: String,
         require: true
@@ -18,7 +22,11 @@ var orderSchema = new Schema({
         type: String,
         require: true
     },
-    address: {
+    model: {
+        type: String,
+        require: true
+    },
+    company: {
         type: String,
         require: true
     },
@@ -31,6 +39,10 @@ var orderSchema = new Schema({
         require: true
     },
     date: {
+        type: String,
+        require: true
+    },
+    status: {
         type: String,
         require: true
     }
