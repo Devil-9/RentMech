@@ -38,8 +38,8 @@ var functions = {
     },
 
     addOrUpdateEquipmentsDetail: function (req, res) {
-        var idDetail = `${req.body.email}@${req.body.productName}@${req.body.model}@${req.body.company}`;
-        var idEquip = `${req.body.productName}@${req.body.model}@${req.body.company}`;
+        var idDetail = `${req.body.email}@${req.body.productName}@${req.body.model}@${req.body.company}@${req.body.location}`;
+        var idEquip = `${req.body.productName}@${req.body.model}@${req.body.company}@${req.body.location}`;
 
         // Check if Vendor exists
         Vendor.findOne({ email: req.body.email }, function (err, vendor) {
@@ -89,7 +89,13 @@ var functions = {
 
                     // Find the associated Equipment and update totalQuantity
                     Equipment.findOneAndUpdate(
-                        { productName: newEquipmentsDetail.productName, model: newEquipmentsDetail.model, company: newEquipmentsDetail.company, id: idEquip },
+                        {
+                            productName: newEquipmentsDetail.productName,
+                            model: newEquipmentsDetail.model,
+                            company: newEquipmentsDetail.company,
+                            id: idEquip,
+                            location: newEquipmentsDetail.location
+                            },
                         { $inc: { totalQuantity: newEquipmentsDetail.totalQuantity } }, // Increment totalQuantity by newEquipmentsDetail.totalQuantity
                         { upsert: true, new: true }, // Upsert: create new if not found, return updated record
                         function (err, equipment) {
