@@ -2,6 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
+const addressSchema = new Schema({
+    address: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: String,
+        required: true
+    }
+});
+
 const userSchema = new Schema({
     firstname: {
         type: String,
@@ -23,7 +34,8 @@ const userSchema = new Schema({
     lastname: {
         type: String,
         required: true
-    }
+    },
+    addresses: [addressSchema]
 });
 
 userSchema.pre('save', function (next) {
