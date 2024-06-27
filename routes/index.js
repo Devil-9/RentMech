@@ -3,6 +3,7 @@ const actions = require('../methods/actions')
 const equipmentActions = require('../methods/equipmentActions')
 const orderAction = require('../methods/orderAction')
 const equipmentsDetailAction = require('../methods/equipmentsDetailAction')
+const vendorAction = require('../methods/vendorActions')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -31,5 +32,6 @@ router.post('/getOrdersByStatus', orderAction.getOrdersByStatus)
 router.post('/addEquipmentsDetail', equipmentsDetailAction.addOrUpdateEquipmentsDetail)
 router.post('/getVendorsList', equipmentsDetailAction.getVendorsList)
 router.post('/addVendor', equipmentsDetailAction.addVendor)
+router.post('/getVendor', vendorAction.getVendor)
 
 module.exports = router
