@@ -14,6 +14,14 @@ var equipmentsDetailSchema = new Schema({
         type: String,
         required: true
     },
+    maxRent :{
+        type: String,
+        required: true
+    },
+    minRent :{
+        type: String,
+        required: true
+    },
     rent: {
         type: String,
         required: true

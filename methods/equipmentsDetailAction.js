@@ -71,37 +71,43 @@ var functions = {
     addOrUpdateEquipmentsDetail: function (req, res) {
         var idDetail = `${req.body.email}@${req.body.productName}@${req.body.model}@${req.body.company}@${req.body.location}`;
         var idEquip = `${req.body.productName}@${req.body.model}@${req.body.company}@${req.body.location}`;
-
+    
+        // Parse rent range
+        var rentRange = req.body.rent.split('-');
+        var minRent = parseFloat(rentRange[0]);
+        var maxRent = parseFloat(rentRange[1]);
+    
         // Check if Vendor exists
         Vendor.findOne({ email: req.body.email }, function (err, vendor) {
             if (err) {
                 console.error('Error finding Vendor:', err);
                 return res.status(500).json({ success: false, msg: 'Database error', error: err });
             }
-
+    
             if (!vendor) {
                 // Return an error if Vendor does not exist
                 return res.status(400).json({ success: false, msg: 'Vendor with this email does not exist', error: 'Vendor not found' });
             }
-
+    
             // Check if EquipmentsDetail with the same id exists
             EquipmentsDetail.findOne({ id: idDetail }, function (err, existingDetail) {
                 if (err) {
                     console.error('Error finding EquipmentsDetail:', err);
                     return res.status(500).json({ success: false, msg: 'Database error', error: err });
                 }
-
+    
                 if (existingDetail) {
                     // Return an error if EquipmentsDetail with the same id already exists
                     return res.status(400).json({ success: false, msg: 'EquipmentsDetail with this ID already exists', error: 'Duplicate ID' });
                 }
-
+    
                 // Create new EquipmentsDetail
                 var newEquipmentsDetail = new EquipmentsDetail({
                     productName: req.body.productName,
                     model: req.body.model,
                     company: req.body.company,
-                    rent: req.body.rent,
+                    minRent: minRent,
+                    maxRent: maxRent,
                     location: req.body.location,
                     email: req.body.email,
                     quantity: req.body.quantity,
@@ -110,14 +116,14 @@ var functions = {
                     id: idDetail,
                     vendor: vendor._id // Associate with Vendor
                 });
-
+    
                 // Save new EquipmentsDetail
                 newEquipmentsDetail.save(function (err, savedDetail) {
                     if (err) {
                         console.error('Error saving EquipmentsDetail:', err);
                         return res.status(500).json({ success: false, msg: 'Failed to save EquipmentsDetail', error: err });
                     }
-
+    
                     // Find the associated Equipment and update totalQuantity
                     Equipment.findOneAndUpdate(
                         {
@@ -126,7 +132,7 @@ var functions = {
                             company: newEquipmentsDetail.company,
                             id: idEquip,
                             location: newEquipmentsDetail.location
-                            },
+                        },
                         { $inc: { totalQuantity: newEquipmentsDetail.totalQuantity } }, // Increment totalQuantity by newEquipmentsDetail.totalQuantity
                         { upsert: true, new: true }, // Upsert: create new if not found, return updated record
                         function (err, equipment) {
@@ -134,16 +140,16 @@ var functions = {
                                 console.error('Error updating Equipment:', err);
                                 return res.status(500).json({ success: false, msg: 'Failed to update Equipment', error: err });
                             }
-
+    
                             // Adjust minRent and maxRent based on new rent in EquipmentsDetail
-                            if (!equipment.minRent || newEquipmentsDetail.rent < equipment.minRent) {
-                                equipment.minRent = newEquipmentsDetail.rent;
+                            if (!equipment.minRent || minRent < equipment.minRent) {
+                                equipment.minRent = minRent;
                             }
-
-                            if (!equipment.maxRent || newEquipmentsDetail.rent > equipment.maxRent) {
-                                equipment.maxRent = newEquipmentsDetail.rent;
+    
+                            if (!equipment.maxRent || maxRent > equipment.maxRent) {
+                                equipment.maxRent = maxRent;
                             }
-
+    
                             // Save updated Equipment
                             equipment.save(function (err) {
                                 if (err) {
@@ -158,6 +164,7 @@ var functions = {
             });
         });
     }
+    
 };
 
 module.exports = functions;
