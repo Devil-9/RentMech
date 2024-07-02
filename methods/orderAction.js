@@ -58,14 +58,14 @@ var functions = {
             if (!order) {
                 return res.status(404).json({ success: false, msg: 'Order not found' });
             }
-            if(order.status == "completed" || order.status == "accepted") {
+            if(order.status == "Completed" || order.status == "Accepted") {
                 return res.status(400).json({ success: false, msg: 'Order is already completed or accepted' })
             }
     
             // Update order details
             order.vendorEmail = vendorEmail; // Add vendor's email
             order.rent = rent; // Update rent
-            order.status = 'accepted'; // Update status to accepted
+            order.status = 'Accepted'; // Update status to accepted
     
             // Save updated order
             await order.save();
@@ -125,12 +125,12 @@ var functions = {
             if (!order) {
                 return res.status(404).json({ success: false, msg: 'Order not found' });
             }
-            if(order.status == "completed") {
+            if(order.status == "Completed") {
                 return res.status(400).json({ success: false, msg: 'Order is already completed' })
             }
     
             // Update order status to completed
-            order.status = 'completed';
+            order.status = 'Completed';
     
             // Save updated order
             await order.save();
@@ -186,11 +186,11 @@ var functions = {
             if (!order) {
                 return res.status(404).json({ success: false, msg: 'Order not found' });
             }
-            if(order.status == "completed") {
+            if(order.status == "Completed") {
                 return res.status(400).json({ success: false, msg: 'Order is already completed' })
             }
             // Update status to cancelled
-            order.status = 'cancelled';
+            order.status = 'Cancelled';
     
             // Save updated order
             await order.save();
