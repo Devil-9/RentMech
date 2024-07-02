@@ -22,10 +22,6 @@ var equipmentsDetailSchema = new Schema({
         type: String,
         required: true
     },
-    rent: {
-        type: String,
-        required: true
-    },
     location: {
         type: String,
         required: true
