@@ -45,6 +45,10 @@ var orderSchema = new Schema({
     status: {
         type: String,
         require: true
+    },
+    placedTime: {
+        type: String,
+        require: true
     }
 
 })

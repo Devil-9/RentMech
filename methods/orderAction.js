@@ -16,7 +16,8 @@ var functions = {
             date : req.body.date,
             duration : req.body.duration,
             address : req.body.address,
-            status : "Placed"
+            status : "Placed",
+            placedTime: new Date()
         });
 
         newOrder.save(function (err,newOrder) {
